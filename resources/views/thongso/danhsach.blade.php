@@ -1,0 +1,54 @@
+@extends('layouts.app')
+@section('content')
+	<div class="card">
+		<div class="card-header">Thong So</div>
+		<div class="card-body table-responsive">
+		<a href="#nhap" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#importModal"><i class="fal fa-upload"></i> Nhập từ Excel</a>
+			<table class="table table-bordered table-hover table-sm mb-0">
+				<thead>
+					<tr>
+						<th width="5%">#</th>
+						<th width="45%">Tên thông số</th>
+						<th width="40%">Loại Sản phẩm<th>
+						
+						<th width="5%">Sửa</th>
+						<th width="5%">Xóa</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach($thongso as $value)
+						<tr>
+							<td>{{ $loop->iteration }}</td>
+							<td>{{ $value->tenthongso }}</td>
+							<td>{{ $value->LoaiSanPham->tenloai }}</td>
+
+						</tr>
+					@endforeach
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<form action="{{ route('thongso.nhap') }}" method="post" enctype="multipart/form-data">
+		@csrf
+		<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="importModalLabel">Nhập từ Excel</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="mb-0">
+							<label for="file_excel" class="form-label">Chọn tập tin Excel</label>
+							<input type="file" class="form-control" id="file_excel" name="file_excel" required />
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fal fa-times"></i> Hủy bỏ</button>
+						<button type="submit" class="btn btn-danger"><i class="fal fa-upload"></i> Nhập dữ liệu</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+@endsection
